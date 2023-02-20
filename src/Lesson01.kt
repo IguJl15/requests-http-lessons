@@ -37,7 +37,7 @@ class Lesson01(override val args: List<String>) : Lesson {
 
         val statusCode = response.statusCode()
         App.printVerbose("Código da resposta: $statusCode")
-        printResponseDetails(response, request)
+        App.printResponseDetails(response, request)
 
 
         if (statusCode != 200) {
@@ -54,14 +54,6 @@ class Lesson01(override val args: List<String>) : Lesson {
         prettyPrintMatches(matches)
         return 0
     }
-
-    private fun printResponseDetails(response: HttpResponse<String>, request: HttpRequest) {
-        App.printVerbose("\nCabeçalho da Requisição:")
-        App.printVerbose(request.headers())
-        App.printVerbose("\nCabeçalho da Resposta:")
-        App.printVerbose(response.headers())
-    }
-
     private fun prettyPrintMatches(matches: Sequence<MatchResult>) {
         val maxWidth = 50
 
