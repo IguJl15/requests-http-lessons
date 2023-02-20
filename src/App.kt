@@ -64,10 +64,10 @@ tags e, ao encontrar uma ocorrência do termo, exiba os 20 caracteres antes e
     }
 }
 
-fun main(args: Array<String>): Int {
+fun main(args: Array<String>) {
     if (args.isEmpty() || "-h" in args || "--help" in args) {
         App.printHelp()
-        return 0
+        return
     }
 
     val flags = args.filter { it.startsWith('-') }.toSet()
@@ -84,10 +84,10 @@ fun main(args: Array<String>): Int {
 
     if (lesson == null) {
         println("Escolha uma dentre as opções disponiveis. Utilize '--help' visualizar as opções")
-        return 1
+        return
     }
 
-    return executeLesson(lesson)
+    executeLesson(lesson)
 }
 
 fun executeLesson(lesson: Lesson): Int {
