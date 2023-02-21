@@ -88,6 +88,7 @@ fun main(args: Array<String>) {
 
     val lesson: Lesson? = when (questionNumber.toInt()) {
         1 -> Lesson01(questionArguments)
+        2 -> Lesson02(questionArguments)
         else -> null
     }
 
