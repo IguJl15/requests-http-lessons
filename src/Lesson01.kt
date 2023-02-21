@@ -2,13 +2,9 @@ package lessons
 
 import lessons.App.truncOrPad
 import java.net.URI
-import java.net.http.HttpClient
 import java.net.http.HttpRequest
-import java.net.http.HttpResponse
 
 class Lesson01(override val args: List<String>) : Lesson {
-
-    private val client = HttpClient.newBuilder().build()
     private lateinit var uri: URI
     private lateinit var request: HttpRequest
 
@@ -18,33 +14,20 @@ class Lesson01(override val args: List<String>) : Lesson {
                     "\nUso: requests-http [OPTION] 01 https://www.google.com"
         }
 
-        try {
-            uri = URI(args.first())
-            request = HttpRequest.newBuilder(uri).build()
-        } catch (e: IllegalArgumentException) {
-            App.printVerbose(e.localizedMessage)
-            App.printVerbose(e.cause)
-
+        val url = args[0]
+        if (!HttpClientProvider.isUrlValid(url)) {
             return "O esquema da URL passada não é válida (você digitou a url correta?)"
         }
+        uri = URI(url)
+        request = HttpRequest.newBuilder(uri).build()
 
         return null
     }
 
     override fun execute(): Int {
-        App.printVerbose("Realizando requisição para \"${uri.host}\"")
-        val response = client.send(request, HttpResponse.BodyHandlers.ofString())
-
-        val statusCode = response.statusCode()
-        App.printVerbose("Código da resposta: $statusCode")
-        App.printResponseDetails(response, request)
-
-
-        if (statusCode != 200) {
-            println("Houve algo de errado durante a requisição.")
-            if (!App.verbose) println("Tente novamente utilizando o argumento '--verbose' para visualizar mais detalhes.")
-            return 1
-        }
+        // if response is null, HttpClientProvider must provide more details. Due that, just stop function
+        val response = HttpClientProvider.fetch(request)
+            ?: return 1
 
         // find the tag <a>
         val aTagRegex = Regex("""<a\b[^>]*href="([^"]*)"[^>]*>(.*?)<\/a>""")
@@ -54,6 +37,7 @@ class Lesson01(override val args: List<String>) : Lesson {
         prettyPrintMatches(matches)
         return 0
     }
+
     private fun prettyPrintMatches(matches: Sequence<MatchResult>) {
         val maxWidth = 50
 
@@ -70,6 +54,5 @@ class Lesson01(override val args: List<String>) : Lesson {
             println("$label: $link")
         }
     }
-
 }
 

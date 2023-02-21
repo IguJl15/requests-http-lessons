@@ -11,9 +11,11 @@ interface Lesson {
 
 object App {
     var verbose = false
+    var content = false
 
     fun parseFlags(options: Collection<String>) {
         if ("--verbose" in options || "-v" in options) this.verbose = true
+        if ("--content" in options || "-c" in options) this.content = true
     }
 
     fun printVerbose(message: Any?) {
@@ -41,12 +43,13 @@ Receba uma página como entrada e um termo a ser buscado e liste as
 ocorrências dentro dessa página. Atente para extrair o texto da página sem as 
 tags e, ao encontrar uma ocorrência do termo, exiba os 20 caracteres antes e 
 20 caracteres depois.
-"ARGUMENTS: URL, TERMO
-"Usage: http-requests-lessons 01 URL
+ARGUMENTS: URL, TERMO
+Usage: http-requests-lessons 01 URL
 
-"Options:
-"-v, --verbose
-"-h, --help
+Options:
+-v, --verbose   Imprime mais detalhes sobre a operação
+-c, --content   Utilizando '--verbose', imprime o conteúdo da requisição (quando válido)
+-h, --help      Imprime este texto de ajuda
 """
         println(help)
     }
@@ -56,11 +59,17 @@ tags e, ao encontrar uma ocorrência do termo, exiba os 20 caracteres antes e
         else padEnd(width)
     }
 
-    fun printResponseDetails(response: HttpResponse<String>, request: HttpRequest) {
+    fun printResponseDetails(response: HttpResponse<String>, request: HttpRequest, elapsedTime: Long) {
+        printVerbose("Tempo da requisição: ${elapsedTime}ms")
+        printVerbose("Código de status: ${response.statusCode()}")
         printVerbose("\nCabeçalho da Requisição:")
         printVerbose(request.headers())
         printVerbose("\nCabeçalho da Resposta:")
         printVerbose(response.headers())
+        if (content) {
+            printVerbose("\nConteúdo da Resposta:")
+            printVerbose(response.body())
+        }
     }
 }
 
