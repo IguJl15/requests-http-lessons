@@ -90,6 +90,7 @@ fun main(args: Array<String>) {
         1 -> Lesson01(questionArguments)
         2 -> Lesson02(questionArguments)
         3 -> Lesson03(questionArguments)
+        4 -> Lesson04(questionArguments)
         else -> null
     }
 

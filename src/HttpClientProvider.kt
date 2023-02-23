@@ -1,9 +1,13 @@
 package lessons
 
+import java.io.File
+import java.io.FileOutputStream
 import java.net.URI
+import java.net.URL
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
 import java.net.http.HttpResponse
+import java.nio.channels.Channels
 
 object HttpClientProvider {
     private val client = HttpClient.newBuilder().build()
@@ -40,5 +44,15 @@ object HttpClientProvider {
         }
 
         return response
+    }
+
+    fun downloadFile(url: URL, outputFile: File) {
+        url.openStream().use {
+            Channels.newChannel(it).use { rbc ->
+                FileOutputStream(outputFile).use { fos ->
+                    fos.channel.transferFrom(rbc, 0, Long.MAX_VALUE)
+                }
+            }
+        }
     }
 }
