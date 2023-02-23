@@ -19,7 +19,7 @@ Uso: requests-http 05 dia de hoje
 
 Todos os parametros passados serao tratados como um texto para pesquisa, porém é aconselhável que você utilize aspas para que o terminal ignore caracteres especiais
 Uso: requests-http 05 "jobs | gates"
-            """
+"""
         }
 
         if (args.size == 1) {

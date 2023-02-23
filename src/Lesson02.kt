@@ -12,8 +12,10 @@ class Lesson02(override val args: List<String>) : Lesson {
 
     override fun validateArgs(): String? {
         if (args.size != 2) {
-            return "Você deve passsar a URL que será usada para realizar a requisição HTTP e a TAG HTML que será procurada" +
-                    "\nUso: requests-http 02 https://www.google.com h2"
+            return """
+Você deve passsar a URL que será usada para realizar a requisição HTTP e a TAG HTML que será procurada
+Uso: requests-http 02 https://www.google.com h2
+            """
         }
 
         htmlTag = args[1].trim().lowercase()
@@ -31,8 +33,6 @@ class Lesson02(override val args: List<String>) : Lesson {
     }
 
     override fun execute(): Int {
-        App.printVerbose("Realizando requisição para \"${uri.host}\"")
-
         // if response is null, HttpClientProvider must provide more details. Due that, just stop function
         val response = HttpClientProvider.fetch(request)
             ?: return 1
@@ -50,9 +50,11 @@ class Lesson02(override val args: List<String>) : Lesson {
     private fun prettyPrintMatches(matches: List<MatchResult>) {
         if (matches.isEmpty()) {
             println(
-                "Não foi encontrado nenhum elemento $htmlTag no documento retornado de ${uri.toURL()}. Lembre-se: " +
-                        "o conteúdo de uma página não é entregue todo de uma vez pelo servidor, alguns itens são " +
-                        "buscados por scripts da página."
+                """
+Não foi encontrado nenhum elemento $htmlTag no documento retornado de ${uri.toURL()}. Lembre-se:
+o conteúdo de uma página não é entregue todo de uma vez pelo servidor, alguns itens são
+buscados por scripts da página.
+"""
             )
 
             return

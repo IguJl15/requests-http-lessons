@@ -10,8 +10,10 @@ class Lesson01(override val args: List<String>) : Lesson {
 
     override fun validateArgs(): String? {
         if (args.size != 1) {
-            return "Você deve passsar a URL que será usada para realizar a requisição HTTP" +
-                    "\nUso: requests-http [OPTION] 01 https://www.google.com"
+            return """
+Você deve passsar a URL que será usada para realizar a requisição HTTP
+Uso: requests-http [OPTION] 01 https://www.google.com
+"""
         }
 
         val url = args[0]

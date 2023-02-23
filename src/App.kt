@@ -60,12 +60,18 @@ Options:
     }
 
     fun printResponseDetails(response: HttpResponse<String>, request: HttpRequest, elapsedTime: Long) {
-        printVerbose("Tempo da requisição: ${elapsedTime}ms")
-        printVerbose("Código de status: ${response.statusCode()}")
-        printVerbose("\nCabeçalho da Requisição:")
-        printVerbose(request.headers())
-        printVerbose("\nCabeçalho da Resposta:")
-        printVerbose(response.headers())
+        printVerbose(
+"""
+Tempo da requisição: ${elapsedTime}ms
+Código de status: ${response.statusCode()}
+
+Cabeçalho da Requisição:
+${request.headers()}
+
+Cabeçalho da Resposta:
+${response.headers()}
+"""
+        )
         if (content) {
             printVerbose("\nConteúdo da Resposta:")
             printVerbose(response.body())

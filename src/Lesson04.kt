@@ -18,7 +18,7 @@ Uso: requests-http 04 https://hpg.com.br/wp-content/uploads/2023/10/nft-precos-c
 
 Caso deseje, você pode tambem especificar o caminho de saída da imagem que deve conter o nome do arquivo de saída (padrão: "./imageOutput/image.xxx". A extensão (png, jpg, svg) é detectada automaticamente a patir da URL):
 Uso: requests-http 04 https://hpg.com.br/wp-content/uploads/2023/10/nft-precos-comprar-1.png ./outDir/image.png
-            """
+"""
         }
 
         val url = args[0]

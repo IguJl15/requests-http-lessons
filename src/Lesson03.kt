@@ -12,12 +12,16 @@ class Lesson03(override val args: List<String>) : Lesson {
 
     override fun validateArgs(): String? {
         if (args.size != 2) {
-            return "Você deve passsar a URL que será usada para realizar a requisição HTTP e a expressão a ser usada na procura" +
-                    "\nUso: requests-http 03 https://www.google.com Google" +
-                    "\n\nVoce pode tambem por o texto entre aspas para caracteres especiais que o terminal não deve ler:" +
-                    "\nUso: requests-http 03 https://flutter.dev \"beautiful mobile\"" +
-                    "\n\nUtilize o mesmo recurso para expressões regulares que contenham caracteres que devem ser ignorados pelo terminal:" +
-                    "\nUso: requests-http 03 https://flutter.dev \"app[ s]?\""
+            return """
+Você deve passsar a URL que será usada para realizar a requisição HTTP e a expressão a ser usada na procura
+Uso: requests-http 03 https://www.google.com Google
+
+Voce pode tambem por o texto entre aspas para caracteres especiais que o terminal não deve ler:
+Uso: requests-http 03 https://flutter.dev "beautiful mobile"
+
+Utilize o mesmo recurso para expressões regulares que contenham caracteres que devem ser ignorados pelo terminal:
+Uso: requests-http 03 https://flutter.dev "app[ s]?"
+"""
         }
 
         query = args[1].trim().lowercase()
