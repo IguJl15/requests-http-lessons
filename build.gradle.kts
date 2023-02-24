@@ -19,6 +19,10 @@ repositories {
     mavenCentral()
 }
 
+dependencies {
+    implementation("org.jsoup:jsoup:1.15.4")
+}
+
 application {
     // Define the main class for the application.
     mainClass.set("lessons.AppKt")
